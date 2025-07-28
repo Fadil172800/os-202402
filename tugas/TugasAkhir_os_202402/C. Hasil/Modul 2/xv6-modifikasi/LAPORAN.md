@@ -96,31 +96,31 @@ Tuliskan kendala (jika ada), misalnya:
 
 *Duplikasi fungsi sys_getpinfo
    Fungsi sys_getpinfo() tertulis dua kali dalam file sysproc.c, menyebabkan error saat kompilasi.
-   ✔Solusi: Menghapus salah satu fungsi sys_getpinfo() yang duplikat, hanya mempertahankan versi yang lengkap dan benar.
+   -Solusi: Menghapus salah satu fungsi sys_getpinfo() yang duplikat, hanya mempertahankan versi yang lengkap dan benar.
 
 *Literal ... disalin ke kode
    Baris placeholder ... dari dokumentasi disalin mentah ke file .c, menyebabkan error expected identifier.
-   ✔Solusi: Menghapus semua baris ... yang bukan bagian dari sintaks C.
+   -Solusi: Menghapus semua baris ... yang bukan bagian dari sintaks C.
 
 *Variabel proc dan cpu tidak dikenali di scheduler()
    Error muncul karena proc dan cpu digunakan tanpa deklarasi di dalam fungsi scheduler().
-   ✔Solusi: Menambahkan struct cpu *c = mycpu(); dan mengganti proc = p; menjadi c->proc = p; agar sesuai dengan struktur xv6.
+   -Solusi: Menambahkan struct cpu *c = mycpu(); dan mengganti proc = p; menjadi c->proc = p; agar sesuai dengan struktur xv6.
 
 *Proses dengan prioritas lebih tinggi tidak selalu dijalankan lebih dulu
    Saat fork() dilakukan dalam urutan yang salah atau tanpa sinkronisasi, proses prioritas rendah bisa selesai lebih cepat.
-   ✔Solusi: Mengubah urutan fork() di ptest.c sehingga proses prioritas tinggi (Child 2) dibuat lebih dulu. Ditambahkan juga sleep(1) untuk memberi waktu             scheduler.
+   -Solusi: Mengubah urutan fork() di ptest.c sehingga proses prioritas tinggi (Child 2) dibuat lebih dulu. Ditambahkan juga sleep(1) untuk memberi waktu             scheduler.
 
 *Fungsi sys_set_priority() tidak memanggil yield()
    Setelah prioritas diubah, sistem tidak langsung melakukan penjadwalan ulang, sehingga proses dengan prioritas lebih rendah tetap berjalan.
-   ✔Solusi: Menambahkan yield(); di akhir sys_set_priority() agar proses menyerahkan CPU secara eksplisit.
+   -Solusi: Menambahkan yield(); di akhir sys_set_priority() agar proses menyerahkan CPU secara eksplisit.
 
 *Tidak validasi nomor syscall
    SYS_set_priority langsung menggunakan nomor 24 tanpa mengecek apakah sudah digunakan.
-   ✔Solusi: Mengecek isi syscall.h untuk memastikan nomor 24 belum digunakan oleh syscall lain.
+   -Solusi: Mengecek isi syscall.h untuk memastikan nomor 24 belum digunakan oleh syscall lain.
 
 Output proses tidak sesuai urutan prioritas
    Meski kode scheduler sudah benar, hasil cetakan bisa tidak sesuai ekspektasi karena proses tidak diberi waktu untuk bergiliran.
-   ✔Solusi: Menambahkan sleep(1) di antara fork() agar proses memiliki waktu untuk masuk ke scheduler berdasarkan prioritasnya.
+   -Solusi: Menambahkan sleep(1) di antara fork() agar proses memiliki waktu untuk masuk ke scheduler berdasarkan prioritasnya.
 ---
 
 ## 📚 Referensi
